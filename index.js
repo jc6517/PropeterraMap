@@ -9,7 +9,7 @@ const map = new harp.MapView({
 });
 
 map.setCameraGeolocationAndZoom(
-   new harp.GeoCoordinates(1.278676, 103.850216),
+   new harp.GeoCoordinates(51.384880, -2.361970),
    //(51.384880, -2.361970),
    4
 );
@@ -67,32 +67,29 @@ map.addDataSource(omvDataSource);
 // })
 
 //Tile data source
-// const globalRailroads = new harp.OmvDataSource({
-//    baseUrl: "https://xyz.api.here.com/hub/spaces/hUJ4ZHJR/tile/web",
-//    apiFormat: harp.APIFormat.XYZSpace,
-//    authenticationCode: 'ACbs-cqcFI4FlPRLK_VF1co', //Use this token!
-// });
+const FranceCertines = new harp.OmvDataSource({
+   baseUrl: "https://xyz.api.here.com/hub/spaces/Yxjq5z5w/tile/web",
+   apiFormat: harp.APIFormat.XYZSpace,
+   authenticationCode: 'AEBbqV9MQSStWBv9XcJD8AA', //Use this token!
+});
+
+map.addDataSource(FranceCertines).then(() => {
+   const styles = [{
+      when: "$geometryType == 'point'",
+      technique: "circles",
+      renderOrder: 10000,
+      attr: {
+         color: "#BA55D3",
+         size: 30
+      }
+   }]
 
 
-// map.addDataSource(globalRailroads).then(() => {
-//    const styles = [{
-//       "when": "$geometryType ^= 'line'",
-//       "renderOrder": 1000,
-//       "technique": "solid-line",
-//       "attr": {
-//          "color": "#D73060",
-//          "transparent": true,
-//          "opacity": 1,
-//          "metricUnit": "Pixel",
-//          "lineWidth": 1
-//       }
-//    }]
+   FranceCertines.setStyleSet(styles);
+   map.update();
+});
 
-//    globalRailroads.setStyleSet(styles);
-//    map.update();
-// });
-
-//Styling didn't work
+// Styling didn't work
 // map.addDataSource(globalRailroads).then(() => {
 //    const styles = [
 //       {
