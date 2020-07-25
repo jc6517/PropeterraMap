@@ -40,54 +40,74 @@ const omvDataSource = new harp.OmvDataSource({
 });
 map.addDataSource(omvDataSource);
 
-// Static data source
-// fetch('wireless-hotspots.geojson')
-// .then(data => data.json())
-// .then(data => {
-//    const geoJsonDataProvider = new harp.GeoJsonDataProvider("wireless-hotspots", data);
-//    const geoJsonDataSource = new harp.OmvDataSource({
-//       dataProvider: geoJsonDataProvider,
-//       name: "wireless-hotspots"
-//    });
+//Static data source
+fetch('https://services5.arcgis.com/bzwep0FCMnTql4lO/ArcGIS/rest/services/FranceCityLayer/FeatureServer/0/query?where=FID%3E0&outFields=City,Efficity_Price_estimate____m2_&token=9E3zHsff1L4zdRusC6gCUMPLcDeZ4qVleCjtp63AL-iOeQ3FNQvpOirWvUgEVCem0_1IcOyjO5-MGHT3wrTt6FtVQdNsBsTPG1reoEInl2UL6oBeTkPITYHZCMl2Uqknv34kf9CB-XYGqtFi1wYAWzYpJWRBgKX0glkeNZzFH8JHFOm_EhD8z7pZVhmSBP7vDuzZJxtT0HaUaTh6t_MtZ52QNsTTLfm9F2nty2J-l1s9w9ytc-TwqaAud2XDcryqJdTnJxDlWvYD1KIleiTmdw..&f=geojson')
+.then(data => data.json())
+.then(data => {
+   const geoJsonDataProvider = new harp.GeoJsonDataProvider("wireless-hotspots", data);
+   const geoJsonDataSource = new harp.OmvDataSource({
+      dataProvider: geoJsonDataProvider,
+      name: "wireless-hotspots"
+   });
 
-//    map.addDataSource(geoJsonDataSource).then(() => {
-//    const styles = [{
-//       when: "$geometryType == 'point'",
-//       technique: "circles",
-//       renderOrder: 10000,
-//       attr: {
-//          color: "red",
-//          size: 15
-//       }
-//    }]
-//    geoJsonDataSource.setStyleSet(styles);
-//    map.update();
-// });
-
-// })
-
-//Tile data source
-const FranceCertines = new harp.OmvDataSource({
-   baseUrl: "https://xyz.api.here.com/hub/spaces/Yxjq5z5w/tile/web",
-   apiFormat: harp.APIFormat.XYZSpace,
-   authenticationCode: 'AEBbqV9MQSStWBv9XcJD8AA', //Use this token!
-});
-
-map.addDataSource(FranceCertines).then(() => {
+   map.addDataSource(geoJsonDataSource).then(() => {
    const styles = [{
       when: "$geometryType == 'point'",
       technique: "circles",
       renderOrder: 10000,
       attr: {
-         color: "#BA55D3",
-         size: 30
+         color: "#7ED321",
+         size: 15
       }
    }]
-
-
-   FranceCertines.setStyleSet(styles);
+   geoJsonDataSource.setStyleSet(styles);
    map.update();
 });
+})
+
+// })
+
+// //Tile data source - works
+// const FranceCertines = new harp.OmvDataSource({
+//    baseUrl: "https://xyz.api.here.com/hub/spaces/Yxjq5z5w/tile/web",
+//    apiFormat: harp.APIFormat.XYZSpace,
+//    authenticationCode: 'AEBbqV9MQSStWBv9XcJD8AA', //Use this token!
+// });
+
+// map.addDataSource(FranceCertines).then(() => {
+//    const styles = [{
+//       when: "$geometryType == 'point'",
+//       technique: "circles",
+//       renderOrder: 10000,
+//       attr: {
+//          color: "#BA55D3",
+//          size: 30
+//       }
+//    }]
+
+
+// //Tile data source - API attempt
+// const FranceCertines = new harp.OmvDataSource({
+//    baseUrl: "https://xyz.api.here.com/hub/spaces/Yxjq5z5w/tile/web",
+//    apiFormat: harp.APIFormat.XYZSpace,
+//    authenticationCode: 'AEBbqV9MQSStWBv9XcJD8AA', //Use this token!
+// });
+
+// map.addDataSource(FranceCertines).then(() => {
+//    const styles = [{
+//       when: "$geometryType == 'point'",
+//       technique: "circles",
+//       renderOrder: 10000,
+//       attr: {
+//          color: "#BA55D3",
+//          size: 30
+//       }
+//    }]
+
+
+//    FranceCertines.setStyleSet(styles);
+//    map.update();
+// });
 
 // Styling didn't work
 // map.addDataSource(globalRailroads).then(() => {
